@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{msgs.ManutencaoEmpresaTitulo}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2" title="#{msgs.EmpresaTitulo}" styleClass="jsfcrud_table" columnClasses="jsfcrud_col_label, td.jsfcrud_col_input">
+                    <h:outputLabel value="#{msgs.EmpresaLabelNome}" for="nome" />
+                    <h:inputText id="nome" value="#{empresaController.empresa.nome}" 
+                                 title="#{msgs.EmpresaTituloNome}" />
+                </h:panelGrid>
+                <h:panelGrid columns="2" title="#{msgs.ContatoTitulo}" styleClass="jsfcrud_table" columnClasses="jsfcrud_col_label, td.jsfcrud_col_input">
+                    <h:outputLabel value="#{msgs.ContatoLabelNome}" for="contatoNome" />
+                    <h:inputText id="contatoNome" value="#{empresaController.empresa.contato.nome}" 
+                                 title="#{msgs.ContatoTituloNome}" />
+                    <h:outputLabel value="#{msgs.ContatoLabelEmail}" for="contatoEmail" />
+                    <h:inputText id="contatoEmail" value="#{empresaController.empresa.contato.email}" 
+                                 title="#{msgs.ContatoTituloEmail}" />
+                    <h:outputLabel value="#{msgs.ContatoLabelCargo}" for="contatoCargo" />
+                    <h:inputText id="contatoCargo" value="#{empresaController.empresa.contato.cargo}" 
+                                 title="#{msgs.ContatoTituloCargo}" />
+                </h:panelGrid>
+                <h:panelGrid columns="3" styleClass="jsfcrud_table">
+                    <h:commandButton action="#{empresaController.create}" 
+                                     rendered="#{empresaController.empresa.id eq null}" 
+                                     value="#{msgs.ManutencaoEmpresaAcaoSalvar}" />
+                    <h:commandButton action="#{empresaController.update}" 
+                                     rendered="#{empresaController.empresa.id ne null}" 
+                                     value="#{msgs.ManutencaoEmpresaAcaoAtualizar}"/>
+                    <h:commandButton action="#{empresaController.delete}" 
+                                     rendered="#{empresaController.empresa.id ne null}" 
+                                     value="#{msgs.ManutencaoEmpresaAcaoExcluir}"/>
+                    <h:commandButton action="/vaga/List" rendered="#{empresaController.empresa.id ne null}"
+                                     value="#{msgs.ManutencaoEmpresaAcaoListarVagas}">
+                        <f:param name="empresaId" value="#{empresaController.empresa.id}"/>
+                    </h:commandButton>
+                </h:panelGrid>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
